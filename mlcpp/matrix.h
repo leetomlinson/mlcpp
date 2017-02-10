@@ -12,6 +12,7 @@
 #define MLCPP_MAIN_MATRIX_H
 
 #include <cstdlib>
+#include <stdexcept>
 
 
 class Matrix {
@@ -51,7 +52,28 @@ public:
     size_t NumCols() const {
         return n_cols_;
     }
+
+    /**
+     * Defines equality between two matrices.
+     *
+     * @param rhs
+     * @return
+     */
+    bool operator==(Matrix const &rhs) const {
+        if (n_rows_ != rhs.n_rows_ || n_cols_ != rhs.n_cols_) {
+            return false;
+        }
+        for (size_t i = 0; i < n_rows_ * n_cols_; ++i) {
+            if (elem_arr_[i] != rhs.elem_arr_[i]) {
+                return false;
+            }
+        }
+        return true;
+    }
 };
+
+
+bool operator!=(Matrix const &lhs, Matrix const &rhs);
 
 
 #endif //MLCPP_MAIN_MATRIX_H

@@ -3,7 +3,7 @@ project(mlcpp_test)
 
 set(CMAKE_CXX_STANDARD 11)
 
-set(SOURCE_FILES test_matrix.cpp)
+set(SOURCE_FILES test_matrix.cpp test_data.cpp)
 add_executable(mlcpp_test ${SOURCE_FILES})
 
 add_subdirectory(googletest)
