@@ -40,6 +40,9 @@ DataSet LoadCsvData(std::string const &path) {
 
         while (in_file.good()) {
             std::getline(in_file, line, '\n');
+            if (line.empty()) {
+                break;
+            }
             token_mat.push_back(Tokenize(line, ','));
         }
 
@@ -91,7 +94,7 @@ DataSet TokenMatrixToDataSet(std::vector<std::vector<std::string>> token_mat) {
     Matrix X(n_rows, row_length - 1);
     std::vector<int> y;
 
-    for (size_t row = 0; row < n_rows; ++row) {
+    for (size_t row = 0; row < X.NumRows(); ++row) {
         if (token_mat[row].size() != row_length) {
             throw std::length_error("Inconsistent row length");
         }
@@ -100,7 +103,7 @@ DataSet TokenMatrixToDataSet(std::vector<std::vector<std::string>> token_mat) {
             X.at(row, col) = std::stod(token_mat[row][col]);
         }
 
-        y.push_back(std::stoi(token_mat[row][row_length]));
+        y.push_back(std::stoi(token_mat[row][row_length - 1]));
     }
 
     return DataSet{X, y};

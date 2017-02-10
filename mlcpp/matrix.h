@@ -34,6 +34,13 @@ public:
         }
     }
 
+    Matrix(Matrix const &matrix) : n_rows_(matrix.n_rows_), n_cols_(matrix.n_cols_),
+                                   elem_arr_(new double[matrix.n_rows_ * matrix.n_cols_]) {
+        for (size_t i = 0; i < n_rows_ * n_cols_; ++i) {
+            elem_arr_[i] = matrix.elem_arr_[i];
+        }
+    };
+
     ~Matrix() {
         delete[] elem_arr_;
     }
